@@ -1,7 +1,7 @@
 <template>
   <div class="todo-card">
-    <input type="checkbox" />
-    <p class="todo-text">Lorem ipsum dolor sit amet consectetur.</p>
+    <input class="checkbox" type="checkbox" v-bind:checked="checked" />
+    <p class="text" v-bind:class="{ 'crossed-out': checked }">{{ text }}</p>
     <b-button variant="danger">&times;</b-button>
   </div>
 </template>
@@ -9,6 +9,16 @@
 <script>
 export default {
   name: "TodoCard",
+  props: {
+    text: {
+      type: String,
+      default: "",
+    },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 
@@ -28,8 +38,17 @@ export default {
   box-shadow: 0 0 4px 1px #2c3e5066;
 }
 
-.todo-text {
+.checkbox {
+  margin-right: 2rem;
+}
+
+.text {
   margin: 0;
   padding: 0;
+  margin-right: 2rem;
+}
+
+.crossed-out {
+  text-decoration: line-through;
 }
 </style>
