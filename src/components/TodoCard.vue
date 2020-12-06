@@ -1,22 +1,37 @@
 <template>
   <div class="todo-card">
-    <input class="checkbox" type="checkbox" v-bind:checked="checked" />
-    <p class="text" v-bind:class="{ 'crossed-out': checked }">{{ text }}</p>
+    <div class="checkbox">
+      <CheckboxButton :isChecked="completed" @mark-completed="markCompleted" />
+    </div>
+    <p class="text" v-bind:class="{ 'crossed-out': completed }">{{ text }}</p>
     <b-button variant="danger">&times;</b-button>
   </div>
 </template>
 
 <script>
+import CheckboxButton from './common/CheckboxButton';
+
 export default {
-  name: "TodoCard",
+  name: 'TodoCard',
+  components: { CheckboxButton },
   props: {
     text: {
       type: String,
-      default: "",
+      default: '',
     },
-    checked: {
+    isChecked: {
       type: Boolean,
       default: false,
+    },
+  },
+  data() {
+    return {
+      completed: this.isChecked,
+    };
+  },
+  methods: {
+    markCompleted(mark) {
+      this.completed = mark;
     },
   },
 };
