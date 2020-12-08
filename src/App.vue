@@ -5,7 +5,11 @@
       <h1>TODO</h1>
       <ul class="todo-list">
         <li class="todo-item" :key="todo.id" v-for="todo in todos">
-          <TodoCard v-bind:text="todo.text" v-bind:isChecked="todo.checked" />
+          <TodoCard
+            v-bind:text="todo.text"
+            v-bind:isChecked="todo.checked"
+            @remove-todo="removeTodo(todo.id)"
+          />
         </li>
       </ul>
     </main>
@@ -32,6 +36,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    removeTodo(id) {
+      this.todos = this.todos.filter(todo => todo.id !== id);
+    },
   },
 };
 </script>

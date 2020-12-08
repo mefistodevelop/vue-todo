@@ -4,7 +4,7 @@
       <CheckboxButton :isChecked="completed" @mark-completed="markCompleted" />
     </div>
     <p class="text" v-bind:class="{ 'crossed-out': completed }">{{ text }}</p>
-    <b-button variant="danger">&times;</b-button>
+    <b-button variant="danger" @click="$emit('remove-todo')">&times;</b-button>
   </div>
 </template>
 
