@@ -3,6 +3,9 @@
     <Header />
     <main class="container">
       <h1>TODO</h1>
+      <div class="new-todo">
+        <CreateTodo @create-todo="createTodo" />
+      </div>
       <ul class="todo-list">
         <li class="todo-item" :key="todo.id" v-for="todo in todos">
           <TodoCard
@@ -17,12 +20,13 @@
 </template>
 
 <script>
+import CreateTodo from './components/CreateTodo.vue';
 import Header from './components/Header';
 import TodoCard from './components/TodoCard';
 
 export default {
   name: 'App',
-  components: { Header, TodoCard },
+  components: { Header, TodoCard, CreateTodo },
   data() {
     return {
       todos: [
@@ -40,6 +44,16 @@ export default {
   methods: {
     removeTodo(id) {
       this.todos = this.todos.filter(todo => todo.id !== id);
+    },
+
+    createTodo({ text, title }) {
+      const newTodo = {
+        title,
+        text,
+        id: this.todos[this.todos.length - 1].id + 1,
+      };
+
+      this.todos.push(newTodo);
     },
   },
 };
@@ -59,6 +73,10 @@ export default {
   margin: 0 auto;
   max-width: 50rem;
   width: 100%;
+}
+
+.new-todo {
+  margin-bottom: 2rem;
 }
 
 .todo-list {
