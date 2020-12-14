@@ -1,26 +1,35 @@
 <template>
   <div class="create-todo">
     <form class="form" name="create-todo" @submit="handleSubmit">
-      <input
+      <!-- <input
         type="text"
         class="form-field todo-title"
         name="todo-title"
         placeholder="Enter a title"
         aria-label="Enter a title"
         v-model="title"
-      />
+      /> -->
       <textarea
         name="todo-text"
         cols="30"
-        rows="3"
+        rows="1"
         placeholder="To do..."
         v-model="text"
         class="form-field todo-text"
+        @focus="onFocus"
       />
 
-      <footer class="form-footer">
-        <button type="submit" class="button submit-button">Save</button>
-        <button type="reset" class="button cancel-button">Cancel</button>
+      <footer class="form-footer" v-show="inFocus">
+        <button
+          type="submit"
+          class="button submit-button"
+          disabled="isDisabled"
+        >
+          Save
+        </button>
+        <button type="button" class="button cancel-button" @click="handleClear">
+          Cancel
+        </button>
       </footer>
     </form>
   </div>
@@ -33,6 +42,8 @@ export default {
     return {
       title: '',
       text: '',
+      inFocus: false,
+      isDisabled: true,
     };
   },
   methods: {
@@ -46,8 +57,19 @@ export default {
         this.$emit('create-todo', { title: trimmedTitle, text: trimmedText });
         this.title = '';
         this.text = '';
+        this.onBlur();
       }
       return;
+    },
+    handleClear() {
+      this.text = '';
+      this.onBlur();
+    },
+    onFocus() {
+      this.inFocus = true;
+    },
+    onBlur() {
+      this.inFocus = false;
     },
   },
 };
@@ -91,6 +113,7 @@ export default {
   min-height: 44px;
   overflow: hidden;
   resize: none;
+  overflow-y: auto;
 }
 
 .form-footer {
