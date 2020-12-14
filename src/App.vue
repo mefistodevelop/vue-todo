@@ -87,6 +87,7 @@ export default {
 
 .todo-item {
   margin-bottom: 0.5rem;
+  transition: 0.3s;
 }
 
 .todo-item:last-of-type {

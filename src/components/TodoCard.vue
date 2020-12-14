@@ -61,6 +61,7 @@ export default {
   margin: 0;
   padding: 0;
   margin-right: 2rem;
+  white-space: pre-wrap;
 }
 
 .crossed-out {
