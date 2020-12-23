@@ -20,11 +20,7 @@
       />
 
       <footer class="form-footer" v-show="inFocus">
-        <button
-          type="submit"
-          class="button submit-button"
-          disabled="isDisabled"
-        >
+        <button type="submit" class="button submit-button">
           Save
         </button>
         <button type="button" class="button cancel-button" @click="handleClear">
@@ -35,25 +31,25 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'CreateTodo',
   data() {
     return {
       title: '',
       text: '',
       inFocus: false,
-      isDisabled: true,
     };
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit(e: Event): void {
       e.preventDefault();
-      const trimmedText = this.text.trim();
-      const trimmedTitle = this.title.trim();
+      const trimmedText: string = this.text.trim();
+      const trimmedTitle: string = this.title.trim();
 
       if (trimmedText || trimmedTitle) {
-        console.log(`title: ${trimmedTitle}; text: ${trimmedText}`);
         this.$emit('create-todo', { title: trimmedTitle, text: trimmedText });
         this.title = '';
         this.text = '';
@@ -61,18 +57,18 @@ export default {
       }
       return;
     },
-    handleClear() {
+    handleClear(): void {
       this.text = '';
       this.onBlur();
     },
-    onFocus() {
+    onFocus(): void {
       this.inFocus = true;
     },
-    onBlur() {
+    onBlur(): void {
       this.inFocus = false;
     },
   },
-};
+});
 </script>
 
 <style scoped>
