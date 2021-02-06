@@ -1,20 +1,12 @@
 <template>
   <div class="create-todo">
-    <form class="form" name="create-todo" @submit="handleSubmit">
-      <!-- <input
-        type="text"
-        class="form-field todo-title"
-        name="todo-title"
-        placeholder="Enter a title"
-        aria-label="Enter a title"
-        v-model="title"
-      /> -->
+    <form class="form" name="create-todo" @submit.prevent="handleSubmit">
       <textarea
         name="todo-text"
         cols="30"
         rows="1"
         placeholder="To do..."
-        v-model="text"
+        v-model.trim="text"
         class="form-field todo-text"
         @focus="onFocus"
       />
@@ -38,24 +30,19 @@ export default Vue.extend({
   name: 'CreateTodo',
   data() {
     return {
-      title: '',
       text: '',
       inFocus: false,
     };
   },
   methods: {
-    handleSubmit(e: Event): void {
-      e.preventDefault();
-      const trimmedText: string = this.text.trim();
-      const trimmedTitle: string = this.title.trim();
+    handleSubmit(): void {
+      const formText = this.text;
 
-      if (trimmedText || trimmedTitle) {
-        this.$emit('create-todo', { title: trimmedTitle, text: trimmedText });
-        this.title = '';
-        this.text = '';
-        this.onBlur();
-      }
-      return;
+      if (!formText) return;
+
+      this.$emit('create-todo', { text: formText });
+      this.text = '';
+      this.onBlur();
     },
     handleClear(): void {
       this.text = '';
