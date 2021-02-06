@@ -1,32 +1,28 @@
 <template>
   <div id="app">
-    <Header />
+    <MainHeader />
     <main class="container">
-      <h1>TODO</h1>
-      <div class="new-todo">
-        <CreateTodo @create-todo="createTodo" />
-      </div>
-      <ul class="todo-list">
-        <li class="todo-item" :key="todo.id" v-for="todo in todos">
-          <TodoCard
-            v-bind:text="todo.text"
-            v-bind:isChecked="todo.checked"
-            @remove-todo="removeTodo(todo.id)"
-          />
-        </li>
-      </ul>
+      <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
-import CreateTodo from './components/CreateTodo.vue';
-import Header from './components/Header';
-import TodoCard from './components/TodoCard';
+import MainHeader from './components/MainHeader';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import VueRouter from 'vue-router';
 
 export default {
   name: 'App',
-  components: { Header, TodoCard, CreateTodo },
+  components: { MainHeader },
+  router: new VueRouter({
+    mode: 'history',
+    routes: [
+      { path: '/', component: HomePage },
+      { path: '/about', component: AboutPage },
+    ],
+  }),
   data() {
     return {
       todos: [
@@ -40,21 +36,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    removeTodo(id) {
-      this.todos = this.todos.filter(todo => todo.id !== id);
-    },
-
-    createTodo({ text, title }) {
-      const newTodo = {
-        title,
-        text,
-        id: this.todos[this.todos.length - 1].id + 1,
-      };
-
-      this.todos.push(newTodo);
-    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">TodoList</a>
+      <span class="navbar-brand title">TodoList</span>
       <button
         class="navbar-toggler"
         type="button"
@@ -15,10 +15,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" href="#"
-            >Home <span class="sr-only">(current)</span></a
-          >
-          <a class="nav-link" href="#">Features</a>
+          <router-link class="nav-link link" to="/">Home</router-link>
+          <router-link class="nav-link link" to="/about">About</router-link>
         </div>
       </div>
     </nav>
@@ -27,6 +25,16 @@
 
 <script>
 export default {
-  name: "Header",
+  name: 'MainHeader',
 };
 </script>
+
+<style scoped>
+.title {
+  cursor: default;
+}
+
+.router-link-exact-active {
+  color: #fff !important;
+}
+</style>
