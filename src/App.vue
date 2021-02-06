@@ -23,20 +23,6 @@ export default {
       { path: '/about', component: AboutPage },
     ],
   }),
-  data() {
-    return {
-      todos: [
-        { id: 1, text: 'To do something cool' },
-        { id: 2, text: 'Create a list of todos', checked: true },
-        { id: 3, text: 'add router and one page for info', checked: true },
-        {
-          id: 4,
-          text:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad officiis maiores commodi assumenda sed dolore eaque quia quis praesentium.',
-        },
-      ],
-    };
-  },
 };
 </script>
 
@@ -54,24 +40,5 @@ export default {
   margin: 0 auto;
   max-width: 50rem;
   width: 100%;
-}
-
-.new-todo {
-  margin-bottom: 2rem;
-}
-
-.todo-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.todo-item {
-  margin-bottom: 0.5rem;
-  transition: 0.3s;
-}
-
-.todo-item:last-of-type {
-  margin-bottom: 0;
 }
 </style>
